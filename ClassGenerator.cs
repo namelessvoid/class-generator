@@ -7,6 +7,15 @@ namespace ClassGenerator
 {
 	class ClassGenerator
 	{
+		static ClassGenerator()
+		{
+	        string codeBase = Assembly.GetExecutingAssembly().CodeBase;
+	        UriBuilder uri = new UriBuilder(codeBase);
+	        string path = Uri.UnescapeDataString(uri.Path);
+
+	        ResourceDirectory = Path.GetDirectoryName(path);
+		}
+
 		public static bool GenerateClass(ClassMetaInfo classMetaInfo)
 		{
 			if(!GenerateHeader(classMetaInfo))
@@ -46,9 +55,13 @@ namespace ClassGenerator
 
 		private static string GetEmbeddedResource(string resourceName)
 		{
+			var path = Path.Combine(ResourceDirectory, resourceName);
+			Console.WriteLine(path);
+			var resource = File.ReadAllText(path);
+			return resource;
+
 			var assembly = Assembly.GetEntryAssembly();
 			var resourceFQDN = $"{assembly.GetName().Name}.{resourceName}";
-			Console.WriteLine(resourceFQDN);
 			var resourceStream = assembly.GetManifestResourceStream(resourceFQDN);
 
             using (var reader = new StreamReader(resourceStream, Encoding.UTF8))
@@ -60,6 +73,7 @@ namespace ClassGenerator
 		private static bool CreateFile(string content, string directory, string fileName)
 		{
 			var fullPath = $"{directory}/{fileName}";
+
 			if(File.Exists(fullPath))
 			{
 				Console.WriteLine($"Cannot create file \"{fullPath}\" because it already exists.");
@@ -68,13 +82,19 @@ namespace ClassGenerator
 
 			if(!Directory.Exists(directory))
 			{
-				Console.WriteLine("Creating directory.");
+				Console.WriteLine($"Creating directory \"{directory}\"");
 				Directory.CreateDirectory(directory);
 			}
 
+			Console.WriteLine($"Creating file \"{fullPath}\"");
 			File.WriteAllText(fullPath, content);
 
 			return true;
+		}
+
+		private static string ResourceDirectory
+		{
+			get; set;
 		}
 	}
 }

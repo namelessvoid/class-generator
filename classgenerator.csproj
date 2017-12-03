@@ -5,9 +5,12 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Include="HeaderTemplate.hpp" />
-    <EmbeddedResource Include="SourceTemplate.cpp" />
-  </ItemGroup>
+  <Target Name="CopyFilesBuild" AfterTargets="Build">
+    <Copy DestinationFolder="$(OutputPath)" SourceFiles="HeaderTemplate.hpp;SourceTemplate.cpp" SkipUnchangedFiles="false" />
+  </Target>
+
+  <Target Name="CopyFilesPublish" AfterTargets="Publish">
+    <Copy DestinationFolder="$(PublishDir)" SourceFiles="HeaderTemplate.hpp;SourceTemplate.cpp" SkipUnchangedFiles="false" />
+  </Target>
 
 </Project>
