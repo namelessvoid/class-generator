@@ -1,0 +1,14 @@
+#include "LOCATION/CLASSNAME.hpp"
+
+namespace NAMESPACE
+{
+
+CLASSNAME::CLASSNAME()
+{
+}
+
+CLASSNAME::~CLASSNAME()
+{
+}
+
+} // NAMESPACE
