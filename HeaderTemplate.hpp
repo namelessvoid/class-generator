@@ -11,6 +11,9 @@ public:
 	~CLASSNAME();
 
 private:
+	CLASSNAME(const CLASSNAME& rhs) = delete;
+
+	CLASSNAME& operator=(const CLASSNAME& rhs) = delete;
 };
 
 
