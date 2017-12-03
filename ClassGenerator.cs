@@ -23,7 +23,7 @@ namespace ClassGenerator
 
 			var headerTemplate = GetEmbeddedResource("HeaderTemplate.hpp");
 			var header = FillTemplateWithClassMetaInfo(headerTemplate, classMetaInfo);
-			return CreateFile(header, $"include/{classMetaInfo.Location}", $"{classMetaInfo.ClassName}.hpp");
+			return CreateFile(header, $"include/{classMetaInfo.Location}", $"{classMetaInfo.ClassName.ToLower()}.hpp");
 		}
 
 		private static bool GenerateSource(ClassMetaInfo classMetaInfo)
@@ -32,7 +32,7 @@ namespace ClassGenerator
 
 			var sourceTemplate = GetEmbeddedResource("SourceTemplate.cpp");
 			var source = FillTemplateWithClassMetaInfo(sourceTemplate, classMetaInfo);
-			return CreateFile(source, $"src/{classMetaInfo.Location}", $"{classMetaInfo.ClassName}.cpp");
+			return CreateFile(source, $"src/{classMetaInfo.Location}", $"{classMetaInfo.ClassName.ToLower()}.cpp");
 		}
 
 		private static string FillTemplateWithClassMetaInfo(string template, ClassMetaInfo classMetaInfo)
