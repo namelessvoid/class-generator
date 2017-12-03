@@ -9,10 +9,10 @@ namespace ClassGenerator
 	{
 		public static bool GenerateClass(ClassMetaInfo classMetaInfo)
 		{
-			// if(!GenerateHeader(classMetaInfo))
-			// {
-			// 	return false;
-			// }
+			if(!GenerateHeader(classMetaInfo))
+			{
+				return false;
+			}
 
 			return GenerateSource(classMetaInfo);
 		}
