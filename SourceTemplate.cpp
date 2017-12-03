@@ -11,4 +11,4 @@ CLASSNAME::~CLASSNAME()
 {
 }
 
-} // NAMESPACE
+} // namespace NAMESPACE

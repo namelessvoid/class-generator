@@ -14,6 +14,6 @@ private:
 };
 
 
-} // NAMESPACE
+} // namespace NAMESPACE
 
 #endif // NAMESPACECAPS_CLASSNAMECAPS_HPP
