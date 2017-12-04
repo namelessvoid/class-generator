@@ -19,7 +19,8 @@ namespace ClassGenerator
             	return 1;
             }
 
-            ClassGenerator.GenerateClass(classMetaInfo);
+            var classGenerator = new ClassGenerator();
+            classGenerator.GenerateClass(classMetaInfo);
 
             return 0;
         }

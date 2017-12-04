@@ -7,7 +7,7 @@ namespace ClassGenerator
 {
     class ClassGenerator
     {
-        static ClassGenerator()
+        public ClassGenerator()
         {
             string codeBase = Assembly.GetExecutingAssembly().CodeBase;
             UriBuilder uri = new UriBuilder(codeBase);
@@ -16,7 +16,7 @@ namespace ClassGenerator
             ResourceDirectory = Path.Combine(Path.GetDirectoryName(path), "templates");
         }
 
-        public static bool GenerateClass(ClassMetaInfo classMetaInfo)
+        public bool GenerateClass(ClassMetaInfo classMetaInfo)
         {
             if(!GenerateHeader(classMetaInfo))
             {
@@ -26,7 +26,7 @@ namespace ClassGenerator
             return GenerateSource(classMetaInfo);
         }
 
-        private static bool GenerateHeader(ClassMetaInfo classMetaInfo)
+        private bool GenerateHeader(ClassMetaInfo classMetaInfo)
         {
             Console.WriteLine("Generating header file.");
 
@@ -35,7 +35,7 @@ namespace ClassGenerator
             return CreateFile(header, $"include/{classMetaInfo.Location}", $"{classMetaInfo.ClassName.ToLower()}.hpp");
         }
 
-        private static bool GenerateSource(ClassMetaInfo classMetaInfo)
+        private bool GenerateSource(ClassMetaInfo classMetaInfo)
         {
             Console.WriteLine("Generating source file.");
 
@@ -44,7 +44,7 @@ namespace ClassGenerator
             return CreateFile(source, $"src/{classMetaInfo.Location}", $"{classMetaInfo.ClassName.ToLower()}.cpp");
         }
 
-        private static string FillTemplateWithClassMetaInfo(string template, ClassMetaInfo classMetaInfo)
+        private string FillTemplateWithClassMetaInfo(string template, ClassMetaInfo classMetaInfo)
         {
             return template.Replace("CLASSNAMECAPS", classMetaInfo.ClassName.ToUpper())
                            .Replace("CLASSNAMELOWER", classMetaInfo.ClassName.ToLower())
@@ -54,14 +54,14 @@ namespace ClassGenerator
                            .Replace("LOCATION", classMetaInfo.Location);
         }
 
-        private static string GetTemplate(string templateFileName)
+        private string GetTemplate(string templateFileName)
         {
             var path = Path.Combine(ResourceDirectory, templateFileName);
             var resource = File.ReadAllText(path);
             return resource;
         }
 
-        private static bool CreateFile(string content, string directory, string fileName)
+        private bool CreateFile(string content, string directory, string fileName)
         {
             var fullPath = $"{directory}/{fileName}";
 
@@ -83,7 +83,7 @@ namespace ClassGenerator
             return true;
         }
 
-        private static string ResourceDirectory
+        private string ResourceDirectory
         {
             get; set;
         }
