@@ -1,4 +1,4 @@
-#include "LOCATION/CLASSNAME.hpp"
+#include "LOCATION/CLASSNAMELOWER.hpp"
 
 namespace NAMESPACE
 {
