@@ -30,7 +30,7 @@ namespace ClassGenerator
 		{
 			Console.WriteLine("Generating header file.");
 
-			var headerTemplate = GetEmbeddedResource("HeaderTemplate.hpp");
+			var headerTemplate = GetTemplate("HeaderTemplate.hpp");
 			var header = FillTemplateWithClassMetaInfo(headerTemplate, classMetaInfo);
 			return CreateFile(header, $"include/{classMetaInfo.Location}", $"{classMetaInfo.ClassName.ToLower()}.hpp");
 		}
@@ -39,7 +39,7 @@ namespace ClassGenerator
 		{
 			Console.WriteLine("Generating source file.");
 
-			var sourceTemplate = GetEmbeddedResource("SourceTemplate.cpp");
+			var sourceTemplate = GetTemplate("SourceTemplate.cpp");
 			var source = FillTemplateWithClassMetaInfo(sourceTemplate, classMetaInfo);
 			return CreateFile(source, $"src/{classMetaInfo.Location}", $"{classMetaInfo.ClassName.ToLower()}.cpp");
 		}
@@ -53,21 +53,11 @@ namespace ClassGenerator
 			               .Replace("LOCATION", classMetaInfo.Location);
 		}
 
-		private static string GetEmbeddedResource(string resourceName)
+		private static string GetTemplate(string templateFileName)
 		{
-			var path = Path.Combine(ResourceDirectory, resourceName);
-			Console.WriteLine(path);
+			var path = Path.Combine(ResourceDirectory, templateFileName);
 			var resource = File.ReadAllText(path);
 			return resource;
-
-			var assembly = Assembly.GetEntryAssembly();
-			var resourceFQDN = $"{assembly.GetName().Name}.{resourceName}";
-			var resourceStream = assembly.GetManifestResourceStream(resourceFQDN);
-
-            using (var reader = new StreamReader(resourceStream, Encoding.UTF8))
-            {
-                return reader.ReadToEnd();
-            }
 		}
 
 		private static bool CreateFile(string content, string directory, string fileName)
