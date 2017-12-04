@@ -13,7 +13,7 @@ namespace ClassGenerator
             UriBuilder uri = new UriBuilder(codeBase);
             string path = Uri.UnescapeDataString(uri.Path);
 
-            ResourceDirectory = Path.GetDirectoryName(path);
+            ResourceDirectory = Path.Combine(Path.GetDirectoryName(path), "templates");
         }
 
         public static bool GenerateClass(ClassMetaInfo classMetaInfo)

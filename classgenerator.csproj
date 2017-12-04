@@ -6,11 +6,11 @@
   </PropertyGroup>
 
   <Target Name="CopyFilesBuild" AfterTargets="Build">
-    <Copy DestinationFolder="$(OutputPath)" SourceFiles="HeaderTemplate.hpp;SourceTemplate.cpp" SkipUnchangedFiles="false" />
+    <Copy DestinationFolder="$(OutputPath)templates" SourceFiles="templates/HeaderTemplate.hpp;templates/SourceTemplate.cpp" SkipUnchangedFiles="false" />
   </Target>
 
   <Target Name="CopyFilesPublish" AfterTargets="Publish">
-    <Copy DestinationFolder="$(PublishDir)" SourceFiles="HeaderTemplate.hpp;SourceTemplate.cpp" SkipUnchangedFiles="false" />
+    <Copy DestinationFolder="$(PublishDir)templates" SourceFiles="templates/HeaderTemplate.hpp;templates/SourceTemplate.cpp" SkipUnchangedFiles="false" />
   </Target>
 
 </Project>
