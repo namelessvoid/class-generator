@@ -7,8 +7,12 @@ namespace ClassGenerator
 {
     class ClassGenerator
     {
-        public ClassGenerator()
+        private IFilesystem _filesystem;
+
+        public ClassGenerator(IFilesystem filesystem)
         {
+            _filesystem = filesystem;
+
             string codeBase = Assembly.GetExecutingAssembly().CodeBase;
             UriBuilder uri = new UriBuilder(codeBase);
             string path = Uri.UnescapeDataString(uri.Path);
@@ -57,7 +61,7 @@ namespace ClassGenerator
         private string GetTemplate(string templateFileName)
         {
             var path = Path.Combine(ResourceDirectory, templateFileName);
-            var resource = File.ReadAllText(path);
+            var resource = _filesystem.ReadFile(path);
             return resource;
         }
 
@@ -65,20 +69,20 @@ namespace ClassGenerator
         {
             var fullPath = $"{directory}/{fileName}";
 
-            if(File.Exists(fullPath))
+            if(_filesystem.FileExists(fullPath))
             {
                 Console.WriteLine($"Cannot create file \"{fullPath}\" because it already exists.");
                 return false;
             }
 
-            if(!Directory.Exists(directory))
+            if(!_filesystem.DirectoryExists(directory))
             {
                 Console.WriteLine($"Creating directory \"{directory}\"");
-                Directory.CreateDirectory(directory);
+                _filesystem.CreateDirectory(directory);
             }
 
             Console.WriteLine($"Creating file \"{fullPath}\"");
-            File.WriteAllText(fullPath, content);
+            _filesystem.WriteFile(fullPath, content);
 
             return true;
         }

@@ -19,7 +19,8 @@ namespace ClassGenerator
             	return 1;
             }
 
-            var classGenerator = new ClassGenerator();
+            var filesystem = new Filesystem();
+            var classGenerator = new ClassGenerator(filesystem);
             classGenerator.GenerateClass(classMetaInfo);
 
             return 0;
