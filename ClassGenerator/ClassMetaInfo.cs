@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace ClassGenerator
 {
-    internal class ClassMetaInfo
+    public class ClassMetaInfo
     {
         public static ClassMetaInfo FromDefinition(string definition)
         {
