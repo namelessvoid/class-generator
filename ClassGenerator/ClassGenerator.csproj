@@ -5,6 +5,10 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="2.1.1" />
+  </ItemGroup>
+
   <Target Name="CopyFilesBuild" AfterTargets="Build">
     <Copy DestinationFolder="$(OutputPath)templates" SourceFiles="templates/HeaderTemplate.hpp;templates/SourceTemplate.cpp" SkipUnchangedFiles="false" />
   </Target>
