@@ -12,6 +12,15 @@ namespace ClassGenerator
             app.Name = "classgen";
             app.HelpOption("-?|-h|--help");
 
+            AddClassCommand(app);
+            AddDefaultCommand(app);
+
+            Console.WriteLine("This is C++ Class Generator");
+            return app.Execute(args);
+        }
+
+        static void AddClassCommand(CommandLineApplication app)
+        {
             app.Command("class", (command) =>
             {
                 command.Description = "Generate a full class, i.e. header and source file.";
@@ -44,16 +53,16 @@ namespace ClassGenerator
                     return 0;
                 });
             });
+        }
 
+        static void AddDefaultCommand(CommandLineApplication app)
+        {
             app.OnExecute(() =>
             {
                 Console.WriteLine("Specify a command");
                 app.ShowHelp();
                 return 1;
             });
-
-            Console.WriteLine("This is C++ Class Generator");
-            return app.Execute(args);
         }
     }
 }
