@@ -20,17 +20,7 @@ namespace ClassGenerator
             ResourceDirectory = Path.Combine(Path.GetDirectoryName(path), "templates");
         }
 
-        public bool GenerateClass(ClassMetaInfo classMetaInfo)
-        {
-            if(!GenerateHeader(classMetaInfo))
-            {
-                return false;
-            }
-
-            return GenerateSource(classMetaInfo);
-        }
-
-        private bool GenerateHeader(ClassMetaInfo classMetaInfo)
+        public bool GenerateHeader(ClassMetaInfo classMetaInfo)
         {
             Console.WriteLine("Generating header file.");
 
@@ -39,7 +29,7 @@ namespace ClassGenerator
             return CreateFile(header, $"include/{classMetaInfo.Location}", $"{classMetaInfo.ClassName.ToLower()}.hpp");
         }
 
-        private bool GenerateSource(ClassMetaInfo classMetaInfo)
+        public bool GenerateSource(ClassMetaInfo classMetaInfo)
         {
             Console.WriteLine("Generating source file.");
 

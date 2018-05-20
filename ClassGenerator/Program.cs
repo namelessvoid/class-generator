@@ -37,6 +37,9 @@ namespace ClassGenerator
                 var classNameOption = command
                     .Option("-c|--classname", "The name of the class.", CommandOptionType.SingleValue)
                     .IsRequired();
+                
+                var headerOnlyOption = command
+                    .Option("-h|--header-only", "Only generate header file.", CommandOptionType.NoValue);
 
                 command.OnExecute(() =>
                 {
@@ -48,7 +51,10 @@ namespace ClassGenerator
 
                     var filesystem = new Filesystem();
                     var classGenerator = new ClassGenerator(filesystem);
-                    classGenerator.GenerateClass(classMetaInfo);
+
+                    var success = classGenerator.GenerateHeader(classMetaInfo);
+                    if(success && !headerOnlyOption.HasValue())
+                        classGenerator.GenerateSource(classMetaInfo);
 
                     return 0;
                 });
