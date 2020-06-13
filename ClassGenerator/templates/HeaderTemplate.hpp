@@ -6,13 +6,11 @@ namespace NAMESPACE {
 class CLASSNAME
 {
 public:
-	CLASSNAME();
+	CLASSNAME() = default;
 
-	~CLASSNAME();
+	~CLASSNAME() = default;
 
-private:
 	CLASSNAME(const CLASSNAME& rhs) = delete;
-
 	CLASSNAME& operator=(const CLASSNAME& rhs) = delete;
 };
 

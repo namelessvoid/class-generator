@@ -3,12 +3,4 @@
 namespace NAMESPACE
 {
 
-CLASSNAME::CLASSNAME()
-{
-}
-
-CLASSNAME::~CLASSNAME()
-{
-}
-
 } // namespace NAMESPACE
